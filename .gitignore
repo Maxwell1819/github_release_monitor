@@ -1,0 +1,16 @@
+__pycache__/
+.pytest_cache/
+
+# 运行时生成
+logs/*.log
+logs/backups/
+downloads/
+
+# 用户敏感信息
+.env
+version_record.json
+config.json
+
+# 开发过程工件（计划/规格文档，仅开发期间使用，不随仓库公开）
+docs/
+.superpowers/

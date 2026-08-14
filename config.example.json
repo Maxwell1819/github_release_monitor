@@ -1,0 +1,135 @@
+{
+  "github_token": "${GITHUB_TOKEN}",
+  "download_path": "./downloads",
+  "apk_rename_output": null,
+  "mirrors": [
+    "https://gh-proxy.com",
+    "https://ghfast.top",
+    "https://ghproxy.cxkpro.top"
+  ],
+  "download": {
+    "max_concurrent": 3,
+    "speed_threshold_kbps": 1024,
+    "slow_timeout_sec": 10
+  },
+  "notify": {
+    "channels": [
+      {
+        "type": "pushplus",
+        "token": "${PUSHPLUS_TOKEN}",
+        "topic": "${PUSHPLUS_TOPIC}"
+      },
+      {
+        "type": "serverchan",
+        "key": "${SERVERCHAN_KEY}"
+      }
+    ],
+    "min_interval_sec": 12,
+    "translate_notes": true
+  },
+  "baidu_translate": {
+    "appid": "${BAIDU_APP_ID}",
+    "secret": "${BAIDU_SECRET_KEY}"
+  },
+  "dry_run": false,
+  "logging": {
+    "level": "INFO",
+    "keep_backup_days": 14
+  },
+  "repos": [
+    {
+      "_comment": "示例 1：files 多条规则 OR 匹配 + exclude_regex 排除 upx 压缩版 + keep_versions=1 平铺只留最新",
+      "repo": "alist-org/alist",
+      "files": [
+        {
+          "keywords": ["alist-windows-amd64"],
+          "extensions": [".zip"]
+        },
+        {
+          "keywords": ["alist-linux-amd64"],
+          "extensions": [".tar.gz"]
+        }
+      ],
+      "release_type": "latest",
+      "exclude_regex": "upx",
+      "rename_with_repo": false,
+      "rename_apk1": false,
+      "keep_versions": 1
+    },
+    {
+      "_comment": "示例 2：release_type=prerelease 含预发布 + rename_apk1 复制为 TV 安装包 + rename_with_repo 加项目名前缀",
+      "repo": "termux/termux-app",
+      "files": [
+        {
+          "keywords": ["universal"],
+          "extensions": [".apk"]
+        }
+      ],
+      "release_type": "prerelease",
+      "exclude_regex": "android-5",
+      "rename_with_repo": true,
+      "rename_apk1": true,
+      "keep_versions": 1
+    },
+    {
+      "_comment": "示例 3：keywords 双词 AND 匹配 + include_regex 只取 master 线 + exclude_regex 排除 shared 版",
+      "repo": "BtbN/FFmpeg-Builds",
+      "files": [
+        {
+          "keywords": ["win64", "gpl"],
+          "extensions": [".zip"]
+        }
+      ],
+      "release_type": "latest",
+      "include_regex": "master",
+      "exclude_regex": "shared",
+      "rename_with_repo": false,
+      "rename_apk1": false,
+      "keep_versions": 1
+    },
+    {
+      "_comment": "示例 4：keep_versions=2 版本子目录保留最近 2 个版本 + rename_with_repo 加版本号后缀",
+      "repo": "starship/starship",
+      "files": [
+        {
+          "keywords": ["x86_64-pc-windows-msvc"],
+          "extensions": [".zip"]
+        }
+      ],
+      "release_type": "latest",
+      "rename_with_repo": true,
+      "rename_apk1": false,
+      "keep_versions": 2
+    },
+    {
+      "_comment": "示例 5：include_regex 只取 amd64 架构 + keep_versions=0 不清理保留全部历史版本",
+      "repo": "rclone/rclone",
+      "files": [
+        {
+          "keywords": ["windows"],
+          "extensions": [".zip"]
+        }
+      ],
+      "release_type": "latest",
+      "include_regex": "amd64",
+      "rename_with_repo": false,
+      "rename_apk1": false,
+      "keep_versions": 0
+    },
+    {
+      "_comment": "示例 6：tag_regex 锁定 desktop 发布线（同一仓库有 Desktop 与 CLI 两条 release 线时按 tag 名筛选）",
+      "repo": "esengine/DeepSeek-Reasonix",
+      "files": [
+        {
+          "keywords": ["amd64-installer"],
+          "extensions": [".exe"]
+        }
+      ],
+      "release_type": "latest",
+      "tag_regex": "desktop",
+      "rename_with_repo": false,
+      "rename_apk1": false,
+      "keep_versions": 1
+    }
+  ]
+}
